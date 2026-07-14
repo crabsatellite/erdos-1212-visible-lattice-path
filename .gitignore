@@ -1,0 +1,13 @@
+build/
+payload/
+tmp/
+paper/*.aux
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.toc
+*.exe
+*.obj
+*.exp
+*.lib

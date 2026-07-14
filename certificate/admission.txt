@@ -1,0 +1,226 @@
+Erdos #1212 finite-repeat interval certificate
+================================================
+Date: 2026-07-14
+
+Claim admitted by this record
+-----------------------------
+For the frozen common-cone vector u on the full q=2310 incidence graph, the
+first-repeat operator for the twelve primes 13,...,59 satisfies
+
+  R_{<61} u < 0.933 u.
+
+The comparison includes the phase-exact blocks, the phase-free powers through
+400, and the separately certified post-400 transfer.  It does not move the
+first-repeat cut.  The disjoint p>=61 contribution remains the independent
+tilted certificate below 0.067 recorded in the manuscript.
+
+Frozen graph and cone
+---------------------
+  PAYLOAD/phase_graph_q2310.bin
+  SHA256 64A37F1401D7692437B0492EA8B1A6B9F75BDCC8C013C586734D7ECE1FEA3FFE
+  q=2310, cells=5336100, incidences=6193952, types=333280
+  directed tail slots=42688800
+  allocated state coordinates=55076704
+
+  PAYLOAD/repeat_phase_witness_u_c1e-4.bin
+  SHA256 B2C950BEC9F4E65458F08B6E7E135A188EEAEF88EE60D99E6136DA26BB1CEAE0
+  positive active coordinates=20601520
+  unused zero coordinates=28281232
+
+Phase centres and exact character coverage
+------------------------------------------
+The complex states and Green accumulators are binary64.  The root phases are
+binary32 lookup values selected by the exact integer exponent
+  (kx*dx+ky*dy) mod p.
+No floating angle is formed in the CUDA recurrence.
+
+  PAYLOAD/repeat_phase_cert_s0_double.bin
+  SHA256 CF5B8CBB626FE2AF4A919258887127464DB4DD362C0A1E042F07CF8C26733445
+  primes 13,17,19,23,29; powers 0--40
+
+  PAYLOAD/repeat_phase_cert_s1_double.bin
+  SHA256 A11C8D980011434AA29E6CDFE2FA87A9C69CD00416BA3C34A4A0D08179A0ADF6
+  primes 31,37,41,43,47,53,59; powers 0--24
+
+Every centre file has 24-byte header plus 55076704 binary64 values, hence
+length 440613656 bytes.  All 16548 characters were included.  Conjugate pairs
+were evaluated once with exact multiplicity two.
+
+The actual root tables used by those runs are
+
+  PAYLOAD/repeat_phase_roots_s0_double.bin
+  SHA256 6135945B07824D7525EC61AEF12CB2D7D2624E4E5A39005E4B83976F01A37D88
+  PAYLOAD/repeat_phase_roots_s1_double.bin
+  SHA256 2A7DE9175FE3D4B591EC4F544F540F478D8B3CF4B385E58C2A03D177F6138172
+
+The verifier uses Machin's identity, alternating rational arctangent series,
+quadrant reduction, and rational Taylor intervals.  It does not call a
+floating trigonometric function.  Exact coverage and results are
+
+  primes=13,17,19,23,29
+  root_components=202
+  worst_error_in_u32=0.499611831910
+  root_component_error_lt_4u32=PASS
+
+  primes=31,37,41,43,47,53,59
+  root_components=622
+  worst_error_in_u32=0.494743785826
+  root_component_error_lt_4u32=PASS
+
+Finite phase-error radius
+-------------------------
+Let eps=2^-24.  A root has componentwise error below 4 eps, hence Euclidean
+error below 4 sqrt(2) eps < 6 eps.  A word in either accepted phase block has
+at most 41 phase factors, including the final projector phase, and exact
+rational arithmetic gives
+
+  ((1+6 eps)^41-1)/eps = 246.00175953729413 < 247.
+
+There are fewer than 20000 sequential binary64 rounding units along the
+state sums, coefficient products, and complete character projection.  Their
+Higham gamma bound is less than one eps because
+
+  gamma_20000(2^-53) < 2^-24.
+
+Thus 248 eps times the phase-free positive image already encloses the complete
+implementation error.  The final checker deliberately uses 500 eps.  This
+also covers the outward binary64 representations of q=22751/1000000, the
+fresh upper table, and the Fourier normalizations.
+
+Directed positive images
+------------------------
+The scalar verifier uses CUDA round-up intrinsics for every positive sum,
+product, conversion, forbidden-backtrack subtraction, and outer B operation.
+It follows one common H^n B u trajectory and emits four upper images:
+
+  PAYLOAD/repeat_scalar_upper_s0_0_40_u.bin
+  SHA256 90E0B9D7D217C7523D0A53D4FAD64884644CEBBB0EDF41E2CB1CA7E9032CA06D
+
+  PAYLOAD/repeat_scalar_upper_s1_0_24_u.bin
+  SHA256 DFAA474D6E0B9441F4A398B43464EF0A58E75CAF6403292CC2E9588141295011
+
+  PAYLOAD/repeat_scalar_upper_fresh_25_400_u.bin
+  SHA256 94724A3852C9056884381BF724BC48F56CB998A8594CA9E19BCF459A34A43FE6
+
+  PAYLOAD/repeat_scalar_upper_unit_41_400_u.bin
+  SHA256 CB0A5401762428FAF7471EC18B25E75645CA7975EDE274DC84A6A6DA4EB6AAF4
+
+Every file has length 440613656 bytes.  Independent ordinary-double scalar
+centres were compared at all 55076704 allocated coordinates.  There were zero
+upper-below-centre failures in all four comparisons.  Maximum relative
+outward excesses were respectively
+
+  6.97997374344e-7,
+  6.97952579509e-7,
+  1.24723092387e-6,
+  4.59895881266e-6.
+
+Post-400 transfer
+-----------------
+The accepted binary64 untilted witness is
+
+  PAYLOAD/hashimoto_certificate_witness_untilted.bin
+  SHA256 81E9DC0BA98D606191BE51ACD5F5EFC8FD40B5383CBEE5008CC651979AD0AC47
+
+The separate interval verifier proves H V <= 0.97 V.  The outward comparisons
+B u <= 3067 V and B V <= 14400 u give the already recorded post-400 cone
+radius below 1.14e-6.
+
+Final directed comparison
+-------------------------
+The comparison uses upward binary64 values for s0, s1, 8e-9, and 1.14e-6,
+and the downward binary64 neighbour of 0.933.  At every allocated coordinate
+it evaluates
+
+  C0 + C1
+  + 500*2^-24*(s0*A0 + s1*A1)
+  + s1*T25 + (8e-9)*s0*T41 + (1.14e-6)*u.
+
+Machine output:
+
+  states=55076704
+  interval_ratio_max_ru=0.91717912709094451
+  threshold_down=0x1.ddb22d0e56041p-1
+  failures=0
+  positive_over_zero=0
+  negative_uppers=0
+  nonfinite=0
+  common_cone_interval=PASS
+
+The maximizing coordinate is incidence 284160.  The strict displayed margin
+to 0.933 is greater than 0.015820872909055.
+
+Verifier sources
+----------------
+  kernel/repeat_phase_probe.cu
+  SHA256 633FAE1F05F027B249A6394EBC7F0F3556871790F4DD0B7A99EAAE2AA7274DFB
+
+  kernel/repeat_scalar_upper.cu
+  SHA256 BC43178D1AAD55931B1561F1BC9E0650D2F1C31750BDB92A9D470BE488F87634
+
+  kernel/repeat_interval_check.cu
+  SHA256 FCB67A5C7FB6194C74B396E20E4F644FA2D90FE038EC53C60B2726E5C320344C
+
+  kernel/verify_repeat_phase_roots.py
+  SHA256 7B37C37AEABBBC1755535251B15A2E623F17DAAE9D74528CFC63BF7D020F9E7D
+
+The accepted binaries in this run were compiled by CUDA 13.1 with MSVC 2022:
+
+  build/repeat_phase_probe_double.exe
+  SHA256 4918445A2F1F3941B47D928BF6CB3EDADCEF02B9CEE57D4517C9B6536EE30FCF
+  build/repeat_scalar_upper.exe
+  SHA256 5F5DA307AD9D4D55EE5BCB3F9A2305F97B5D39176B5D9C086D28BAC3D0C78253
+  build/repeat_interval_check.exe
+  SHA256 6E3177718FEEDCA266C973EEEAA90DDF0EC845354EDA62FD9ECED36BED5A5CD4
+
+Replay commands
+---------------
+  build/repeat_phase_probe_double.exe PAYLOAD/phase_graph_q2310.bin 40 6 29 1 \
+    PAYLOAD/repeat_phase_witness_i20_o5.bin 0 1 13 \
+    PAYLOAD/repeat_phase_witness_v.bin 0.0001
+
+  build/repeat_phase_probe_double.exe PAYLOAD/phase_graph_q2310.bin 24 6 59 1 \
+    PAYLOAD/repeat_phase_witness_i20_o5.bin 0 1 31 \
+    PAYLOAD/repeat_phase_witness_v.bin 0.0001
+
+  python kernel/verify_repeat_phase_roots.py \
+    PAYLOAD/repeat_phase_roots_s0_double.bin 13,17,19,23,29
+  python kernel/verify_repeat_phase_roots.py \
+    PAYLOAD/repeat_phase_roots_s1_double.bin 31,37,41,43,47,53,59
+
+  build/repeat_scalar_upper.exe PAYLOAD/phase_graph_q2310.bin \
+    PAYLOAD/repeat_phase_witness_u_c1e-4.bin
+
+  build/repeat_interval_check.exe \
+    PAYLOAD/repeat_phase_witness_u_c1e-4.bin \
+    PAYLOAD/repeat_phase_cert_s0_double.bin \
+    PAYLOAD/repeat_phase_cert_s1_double.bin \
+    PAYLOAD/repeat_scalar_upper_s0_0_40_u.bin \
+    PAYLOAD/repeat_scalar_upper_s1_0_24_u.bin \
+    PAYLOAD/repeat_scalar_upper_fresh_25_400_u.bin \
+    PAYLOAD/repeat_scalar_upper_unit_41_400_u.bin
+
+Seven-part adversarial admission review
+---------------------------------------
+1. Statement binding: PASS.  The checked inequality is exactly COMMON-CONE,
+   the remaining acceptance condition named in the manuscript.
+2. Cut preservation: PASS.  Powers 0--400 and the post-400 transfer are in
+   the same u-cone; p>=61 is the disjoint theorem already bounded by 0.067.
+3. Coverage: PASS.  Twelve primes, 16548 characters, and all 55076704
+   allocated states are covered; no phase sampling is used.
+4. Arithmetic soundness: PASS.  Roots have exact-rational enclosures, phase
+   centres are binary64 with a proved 500 eps radius, and positive tails use
+   directed round-up arithmetic.
+5. Exceptional states: PASS.  There are no positive-over-zero, negative-upper,
+   nonfinite, or threshold-failure states.
+6. Integrity and replay: PASS.  Every accepted source, input, and output is
+   hash-pinned above; file headers and exact lengths are checked.
+7. Downstream dependency: PASS.  COMMON-CONE plus the independent 0.067 large
+   repeat tail gives the strict first-repeat norm below one required by the
+   unchanged renewal/no-escape argument.
+
+Admission verdict
+-----------------
+R-REPEAT-12: EVIDENCE_CLOSED
+COMMON-CONE: CERTIFIED
+No acceptance condition remains inside the first-repeat route.

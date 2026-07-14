@@ -1,0 +1,160 @@
+{
+  "schema": "erdos1212.public-certificate.v1",
+  "claim": "R_<61 u < 0.933 u on all 55076704 allocated states",
+  "accepted_ratio": "0.91717912709094451",
+  "repository_files": [
+    {
+      "path": "README.md",
+      "bytes": 3133,
+      "sha256": "48CC708B3933970600F09D62C837F21C13B3CBEE685E530E070750E25E25A913"
+    },
+    {
+      "path": "LICENSE.md",
+      "bytes": 600,
+      "sha256": "C2614FD8E52C2F084184FA3B7D3583B7854A9FC8E18DE3ABE2C94BD19BAC8322"
+    },
+    {
+      "path": "paper/erdos1212_minimal_closure.tex",
+      "bytes": 18018,
+      "sha256": "F4018CE8A36B8AB52048DD0BB4415522955E910601584FC7D978D75D9F7A4A6C"
+    },
+    {
+      "path": "paper/Li_Erdos_1212_Minimal_Closure_2026.pdf",
+      "bytes": 301254,
+      "sha256": "FDAC99ED9D87495DB6FFE9FE62968C69D633BA7E17C77793910A2C4A5B620201"
+    },
+    {
+      "path": "paper/theorem-map.json",
+      "bytes": 1039,
+      "sha256": "94573A97367DC1A1F992B81F9CA2974C46941C775D93D6AB8563D7158EAB2DF5"
+    },
+    {
+      "path": "certificate/admission.txt",
+      "bytes": 8906,
+      "sha256": "C0F2EFA01EEE2C9808EEA9B255952E5C62A01A8BDF10F9A46D75446A67A08394"
+    },
+    {
+      "path": "certificate/hashimoto.txt",
+      "bytes": 2448,
+      "sha256": "7B2CB704C200885ECFD67996000C5F54BC0AF674DF98F1E7E180E0B2E9359E34"
+    },
+    {
+      "path": "certificate/roots/repeat_phase_roots_s0.bin",
+      "bytes": 836,
+      "sha256": "6135945B07824D7525EC61AEF12CB2D7D2624E4E5A39005E4B83976F01A37D88"
+    },
+    {
+      "path": "certificate/roots/repeat_phase_roots_s1.bin",
+      "bytes": 2524,
+      "sha256": "2A7DE9175FE3D4B591EC4F544F540F478D8B3CF4B385E58C2A03D177F6138172"
+    },
+    {
+      "path": "kernel/repeat_interval_check.cu",
+      "bytes": 7052,
+      "sha256": "FCB67A5C7FB6194C74B396E20E4F644FA2D90FE038EC53C60B2726E5C320344C"
+    },
+    {
+      "path": "kernel/repeat_phase_probe.cu",
+      "bytes": 48444,
+      "sha256": "633FAE1F05F027B249A6394EBC7F0F3556871790F4DD0B7A99EAAE2AA7274DFB"
+    },
+    {
+      "path": "kernel/repeat_scalar_upper.cu",
+      "bytes": 17936,
+      "sha256": "BC43178D1AAD55931B1561F1BC9E0650D2F1C31750BDB92A9D470BE488F87634"
+    },
+    {
+      "path": "kernel/skeleton_winding_kernel.cpp",
+      "bytes": 53810,
+      "sha256": "14C3A345B8AEBD184EC0F6989C05BD7956FAEB79493CDF774076CB1B17464952"
+    },
+    {
+      "path": "kernel/verify_repeat_phase_roots.py",
+      "bytes": 5527,
+      "sha256": "7B37C37AEABBBC1755535251B15A2E623F17DAAE9D74528CFC63BF7D020F9E7D"
+    },
+    {
+      "path": "scripts/build_paper.ps1",
+      "bytes": 1985,
+      "sha256": "332D0188F0C59C8A366E9BB006443FC7946404B03924234F3E237BD640519D1F"
+    },
+    {
+      "path": "scripts/verify_full_certificate.ps1",
+      "bytes": 2124,
+      "sha256": "6DB9E89B094FF91223EEFC4A4B2AC03909621A7BA9507E57A48C54EDCFF0F824"
+    },
+    {
+      "path": "scripts/verify_publication.py",
+      "bytes": 6999,
+      "sha256": "516F2F25928F9187B8CEFC2B75C41662EE27AA158005E565FBB5C971A374B38E"
+    }
+  ],
+  "external_payload": [
+    {
+      "name": "phase_graph_q2310.bin",
+      "bytes": 97576560,
+      "sha256": "64A37F1401D7692437B0492EA8B1A6B9F75BDCC8C013C586734D7ECE1FEA3FFE",
+      "role": "periodic incidence graph"
+    },
+    {
+      "name": "repeat_phase_witness_i20_o5.bin",
+      "bytes": 220306840,
+      "sha256": "026D53680580F88E22953CCE8FC2A0D1B224FAB83E1EC22DD31DE683E47CA0F6",
+      "role": "sparse phase cone candidate"
+    },
+    {
+      "name": "repeat_phase_witness_v.bin",
+      "bytes": 220306840,
+      "sha256": "2616D43D8D6E6EBE51E87C82BF3DE184314A53732D7866091484E543C7972D4F",
+      "role": "strictly positive regularizer"
+    },
+    {
+      "name": "repeat_phase_witness_u_c1e-4.bin",
+      "bytes": 220306840,
+      "sha256": "B2C950BEC9F4E65458F08B6E7E135A188EEAEF88EE60D99E6136DA26BB1CEAE0",
+      "role": "accepted common-cone vector"
+    },
+    {
+      "name": "repeat_phase_cert_s0_double.bin",
+      "bytes": 440613656,
+      "sha256": "CF5B8CBB626FE2AF4A919258887127464DB4DD362C0A1E042F07CF8C26733445",
+      "role": "binary64 Fourier centre for primes 13 through 29"
+    },
+    {
+      "name": "repeat_phase_cert_s1_double.bin",
+      "bytes": 440613656,
+      "sha256": "A11C8D980011434AA29E6CDFE2FA87A9C69CD00416BA3C34A4A0D08179A0ADF6",
+      "role": "binary64 Fourier centre for primes 31 through 59"
+    },
+    {
+      "name": "repeat_scalar_upper_s0_0_40_u.bin",
+      "bytes": 440613656,
+      "sha256": "90E0B9D7D217C7523D0A53D4FAD64884644CEBBB0EDF41E2CB1CA7E9032CA06D",
+      "role": "directed positive phase-radius image S0"
+    },
+    {
+      "name": "repeat_scalar_upper_s1_0_24_u.bin",
+      "bytes": 440613656,
+      "sha256": "DFAA474D6E0B9441F4A398B43464EF0A58E75CAF6403292CC2E9588141295011",
+      "role": "directed positive phase-radius image S1"
+    },
+    {
+      "name": "repeat_scalar_upper_fresh_25_400_u.bin",
+      "bytes": 440613656,
+      "sha256": "94724A3852C9056884381BF724BC48F56CB998A8594CA9E19BCF459A34A43FE6",
+      "role": "directed fresh tail image"
+    },
+    {
+      "name": "repeat_scalar_upper_unit_41_400_u.bin",
+      "bytes": 440613656,
+      "sha256": "CB0A5401762428FAF7471EC18B25E75645CA7975EDE274DC84A6A6DA4EB6AAF4",
+      "role": "directed unit-coefficient tail image"
+    },
+    {
+      "name": "hashimoto_certificate_witness_untilted.bin",
+      "bytes": 440613656,
+      "sha256": "81E9DC0BA98D606191BE51ACD5F5EFC8FD40B5383CBEE5008CC651979AD0AC47",
+      "role": "post-400 Collatz transfer witness"
+    }
+  ]
+}
