@@ -43,8 +43,8 @@
     },
     {
       "path": "certificate/kernel-audit.txt",
-      "bytes": 542,
-      "sha256": "75f75118b64b63cf86657b5dd8de6d5b1b38b275b3c8cd06fe853b8db68f0c99"
+      "bytes": 670,
+      "sha256": "5d2b489835d81036762959962276f5f935238a6ceb57c9433e8424e818f55344"
     },
     {
       "path": "kernel/Erdos1212Kernel.lean",

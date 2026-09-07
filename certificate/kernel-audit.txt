@@ -5,3 +5,7 @@ CorridorScale.algebraicCorridor_paper_close : AlgebraicCorridorPaperStatement
  Quot.sound]
 'Erdos1212Kernel.CorridorScale.algebraicCorridor_paper_close' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Erdos1212Kernel.algebraicCorridor_literal_paper_endpoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+ERDOS1212_LITERAL_PAPER_ENDPOINT_PASSED
+ERDOS1212_ORIGINAL_ENDPOINT_PASSED
+ERDOS1212_AXIOM_CONTRACT_PASSED
+ERDOS1212_TRUST_ZERO_PASSED
