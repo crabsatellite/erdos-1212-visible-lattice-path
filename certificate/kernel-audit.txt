@@ -1,0 +1,7 @@
+CorridorScale.erdos1212_fullClose_from_algebraic_corridors : Erdos1212FullClose
+CorridorScale.algebraicCorridor_paper_close : AlgebraicCorridorPaperStatement
+'Erdos1212Kernel.CorridorScale.erdos1212_fullClose_from_algebraic_corridors' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Erdos1212Kernel.CorridorScale.algebraicCorridor_paper_close' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Erdos1212Kernel.algebraicCorridor_literal_paper_endpoint' depends on axioms: [propext, Classical.choice, Quot.sound]

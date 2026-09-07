@@ -1,0 +1,108 @@
+import Erdos1212Kernel.IwaniecAntitoneQuadrature
+import Erdos1212Kernel.IwaniecQuadratureSourceRate
+import Erdos1212Kernel.IwaniecEffectivePrimeRemainder
+
+namespace Erdos1212Kernel
+
+noncomputable section
+
+open MeasureTheory intervalIntegral Set
+
+set_option maxHeartbeats 600000
+
+theorem iwaniecWeightedLogLog_antitone_source_error (b : Real → Real) {B A : Nat}
+    (hB : 3 ≤ B) (hBA : B ≤ A)
+    (hb : AntitoneOn b (Icc (B : Real) (A : Real)))
+    (hb0 : ∀ x ∈ Icc (B : Real) (A : Real), 0 ≤ b x) :
+    |iwaniecLogLogIncrementWeightedInterval (fun n => b n) B A -
+      iwaniecWeightedLogKernelIntegral b B A| ≤
+      iwaniecQuadratureSourceConstant * b B * Real.exp (-Real.sqrt (Real.log (B : Real))) := by
+  have h := iwaniecWeightedLogLog_antitone_quadrature_error b hB hBA hb hb0
+  have hBr : (3 : Real) ≤ B := by exact_mod_cast hB
+  have hK := iwaniecLogKernel_pred_source_rate hBr
+  have hpred : ((B - 1 : Nat) : Real) = (B : Real) - 1 := by
+    rw [Nat.cast_sub (by omega : 1 ≤ B), Nat.cast_one]
+  rw [← hpred] at hK
+  have hbB : 0 ≤ b B := hb0 B ⟨le_rfl, by exact_mod_cast hBA⟩
+  calc
+    _ ≤ b B * iwaniecLogKernel ((B - 1 : Nat) : Real) := h
+    _ ≤ b B * (iwaniecQuadratureSourceConstant * Real.exp (-Real.sqrt (Real.log (B : Real)))) :=
+      mul_le_mul_of_nonneg_left hK hbB
+    _ = _ := by ring
+
+theorem iwaniecAntitonePrimeIntegral_isolated_source_error (b : Real → Real) {B A : Nat}
+    (hB : 3 ≤ B) (hBA : B ≤ A)
+    (hb : AntitoneOn b (Icc (B : Real) (A : Real)))
+    (hb0 : ∀ x ∈ Icc (B : Real) (A : Real), 0 ≤ b x) :
+    |iwaniecPrimeReciprocalWeightedInterval (fun n => b n) B A -
+      (∫ x in (B : Real)..(A : Real), b x / (x * Real.log x)) -
+      iwaniecPrimeReciprocalRemainderAbel (fun n => b n) B A| ≤
+      iwaniecQuadratureSourceConstant * b B * Real.exp (-Real.sqrt (Real.log (B : Real))) := by
+  have h := iwaniecWeightedLogLog_antitone_source_error b hB hBA hb hb0
+  have hi : iwaniecWeightedLogKernelIntegral b B A =
+      ∫ x in (B : Real)..(A : Real), b x / (x * Real.log x) := by
+    unfold iwaniecWeightedLogKernelIntegral
+    apply intervalIntegral.integral_congr
+    intro x hx
+    unfold iwaniecLogKernel
+    ring
+  rw [hi] at h
+  rw [iwaniecPrimeReciprocalWeightedInterval_eq_logLogIncrement_add_remainder (fun n => b n) hBA]
+  convert h using 1 <;> congr 1 <;> ring
+
+/-- Uniform decreasing-weight analogue obtained by the source's literal
+Abel proof. The effective Mertens premise is discharged, not postulated. -/
+theorem exists_iwaniecAntitonePrime_natural_constant :
+    ∃ C : Real, 0 < C ∧ ∀ (b : Real → Real) (B A : Nat), 3 ≤ B → B ≤ A →
+      AntitoneOn b (Icc (B : Real) (A : Real)) →
+      (∀ x ∈ Icc (B : Real) (A : Real), 0 ≤ b x) →
+      |iwaniecPrimeReciprocalWeightedInterval (fun n => b n) B A -
+        (∫ x in (B : Real)..(A : Real), b x / (x * Real.log x))| ≤
+          C * b B * Real.exp (-Real.sqrt (Real.log (B : Real))) := by
+  obtain ⟨M, hM, hrem⟩ := exists_iwaniecPrimeReciprocalRemainder_unit_error_all
+  let C := iwaniecQuadratureSourceConstant + 2 * M * Real.exp 1
+  have hC : 0 < C := by
+    have hq := iwaniecQuadratureSourceConstant_pos
+    dsimp [C]
+    positivity
+  refine ⟨C, hC, ?_⟩
+  intro b B A hB hBA hbAnti hbNonneg
+  let e := M * Real.exp 1 * Real.exp (-Real.sqrt (Real.log (B : Real)))
+  have he : 0 ≤ e := by dsimp [e]; positivity
+  have hBn : (3 : Real) ≤ B := by exact_mod_cast hB
+  have hbN : ∀ n ∈ Finset.Icc B A, 0 ≤ b n := by
+    intro n hn
+    obtain ⟨hnB, hnA⟩ := Finset.mem_Icc.mp hn
+    exact hbNonneg n ⟨by exact_mod_cast hnB, by exact_mod_cast hnA⟩
+  have hbI : ∀ n ∈ Finset.Ico B A, b (n + 1 : Nat) ≤ b n := by
+    intro n hn
+    obtain ⟨hnB, hnA⟩ := Finset.mem_Ico.mp hn
+    apply hbAnti
+    · exact ⟨by exact_mod_cast hnB, by exact_mod_cast hnA.le⟩
+    · exact ⟨by exact_mod_cast (show B ≤ n + 1 by omega), by exact_mod_cast (show n + 1 ≤ A by omega)⟩
+    · exact_mod_cast Nat.le_succ n
+  have hremI : ∀ n ∈ Finset.Icc (B - 1) A, |iwaniecPrimeReciprocalRemainder n| ≤ e := by
+    intro n hn
+    have hnlower := (Finset.mem_Icc.mp hn).1
+    have hpred : ((B - 1 : Nat) : Real) = (B : Real) - 1 := by
+      rw [Nat.cast_sub (by omega : 1 ≤ B), Nat.cast_one]
+    have hny : (B : Real) - 1 ≤ (n : Real) := by rw [← hpred]; exact_mod_cast hnlower
+    have hd := iwaniec_unit_decay_le_pred_envelope hBn hny
+    have hm := (hrem n).trans (mul_le_mul_of_nonneg_left hd hM.le)
+    simpa only [e, mul_assoc] using hm
+  have hAbel := abs_iwaniecPrimeReciprocalRemainderAbel_antitone_le (fun n => b n) hBA he hbN hbI hremI
+  have hQuad := iwaniecAntitonePrimeIntegral_isolated_source_error b hB hBA hbAnti hbNonneg
+  let W := iwaniecPrimeReciprocalWeightedInterval (fun n => b n) B A
+  let J := ∫ x in (B : Real)..(A : Real), b x / (x * Real.log x)
+  let R := iwaniecPrimeReciprocalRemainderAbel (fun n => b n) B A
+  have htri := abs_add_le (W - J - R) R
+  rw [sub_add_cancel] at htri
+  calc
+    _ ≤ |W - J - R| + |R| := htri
+    _ ≤ iwaniecQuadratureSourceConstant * b B * Real.exp (-Real.sqrt (Real.log (B : Real))) +
+        2 * e * b B := add_le_add hQuad hAbel
+    _ = _ := by dsimp [C, e]; ring
+
+end
+
+end Erdos1212Kernel

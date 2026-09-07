@@ -1,83 +1,67 @@
-# A Machine-Certified Closure of Erdős Problem 1212
+# Erdős 1212: infinite paths in the composite-restricted visible lattice
 
-This public repository contains only the certificate kernel and the shortest
-self-contained proof chain used to close Erdős Problem 1212.
+This repository provides the Lean 4 formalization accompanying **Infinite paths
+in the composite-restricted visible lattice**, by Alex Chengyu Li.
 
-The theorem is the original visible-lattice path statement: there is an
-unbounded unit-step path of coprime pairs above the coordinate axes that never
-visits a prime-prime vertex. The proof keeps that cut unchanged.
+The graph consists of natural-coordinate pairs with both coordinates greater
+than one, gcd equal to one, and at least one composite coordinate. Edges are
+unit horizontal or vertical steps. The theorem establishes an infinite simple
+path and, more strongly, a ray with x/y tending to alpha for Lebesgue-almost
+every alpha in (4/3,5/3).
 
-## Public surface
+- [Original problem](https://www.erdosproblems.com/1212)
+- [Paper PDF](paper/Li_Infinite_Paths_Composite_Restricted_Visible_Lattice_2026.pdf)
+- [Paper source](paper/erdos1212_algebraic_corridors.tex)
+- [Dated preprint](https://doi.org/10.5281/zenodo.22448686)
+- [Versioned formalization and compiled artifacts](https://github.com/crabsatellite/erdos-1212-visible-lattice-path/releases/tag/v1.0.0)
 
-- `paper/erdos1212_minimal_closure.tex`: minimal closed-loop proof.
-- `paper/Li_Erdos_1212_Minimal_Closure_2026.pdf`: rendered proof.
-- `paper/theorem-map.json`: theorem-to-certificate map.
-- `kernel/`: the exact C++/CUDA/Python certificate kernel.
-- `certificate/manifest.json`: SHA-256 and byte-length contract for every
-  accepted source, small in-repository certificate, and dense replay payload.
-- `certificate/admission.txt`: frozen full-state acceptance transcript.
-- `certificate/hashimoto.txt`: frozen translation-kernel transcript.
-- `scripts/verify_publication.py`: fail-closed public-surface checker.
-- `scripts/verify_full_certificate.ps1`: optional full dense-payload replay.
+## Statements and proof entry
 
-Research logs, route selection, failed arguments, generated status reports,
-and exploratory binaries are intentionally absent.
+The literal graph definitions are in [Target.lean](kernel/Erdos1212Kernel/Target.lean).
+The main statement is in [AlgebraicCorridorTarget.lean](kernel/Erdos1212Kernel/AlgebraicCorridorTarget.lean).
+[AlgebraicCorridorPaperClose.lean](kernel/Erdos1212Kernel/AlgebraicCorridorPaperClose.lean)
+proves it from the constructed crossing paths. The final
+[AlgebraicCorridorKernelAudit.lean](kernel/Erdos1212Kernel/AlgebraicCorridorKernelAudit.lean)
+spells out the real interval, injectivity, safety, unit adjacency and real ratio
+limit, consumes that theorem, and prints the dependencies of all three endpoints.
 
-## Closed inequality
+Injectivity makes the path eventually leave every finite lattice region. The
+interval has positive measure, so the almost-everywhere theorem supplies a
+path and answers the original existence question. The optional monotonicity
+and bounded-turn strengthening is not asserted.
 
-The twelve-prime directed interval certificate proves
+The final endpoints depend only on `propext`, `Classical.choice`, and `Quot.sound`.
+There are no additional mathematical axioms in their printed dependencies.
+[Recorded kernel output](certificate/kernel-audit.txt) and the
+[artifact manifest](certificate/manifest.json) identify this release's evidence.
+This is machine verification, not a claim of journal peer review.
+
+## Reproduce
+
+Install the exact Lean version in `kernel/lean-toolchain` and preserve the
+dependency revisions in `kernel/lake-manifest.json`.
 
 ```text
-R_<61 u <= U <= 0.91717912709094451 u < 0.933 u.
+cd kernel
+lake exe cache get
+lake build Erdos1212Kernel
+lake env lean --trust=0 Erdos1212Kernel/AlgebraicCorridorKernelAudit.lean
 ```
 
-The disjoint large-repeat tail satisfies `||R_>=61|| < 0.067`. Hence the
-complete first-repeat renewal norm is strictly below one. The all-fresh series
-is summable, so separating contour mass cannot escape to infinity; the
-original unbounded path follows.
+The Release also supplies `erdos1212-lean-cache-v1.0.0.zip`, containing only
+compiled outputs for this repository's project modules. It excludes Mathlib
+and other dependency caches. With the pinned dependencies available, extracting
+that ZIP into `kernel/` restores `.lake/build/lib/lean/` and permits the final
+audit command without rebuilding the unchanged project modules. Check the
+archive hash against the release manifest before extraction.
 
-The full-state comparison covers 55,076,704 allocated coordinates and reports
-zero threshold, positive-over-zero, negative-upper, and nonfinite failures.
+`python scripts/verify_publication.py` checks file identity and the source
+inventory only; it does not run Lean or independently prove the theorem.
 
-## Verification
+Release v1.0.0 is the algebraic-corridor proof. Earlier repository history
+predates this proof and contains superseded private staging material; it is
+not part of this release's mathematical evidence.
 
-Metadata, source hashes, exact root enclosures, transcript, and public-surface
-checks:
+## License
 
-```powershell
-python scripts/verify_publication.py
-```
-
-Rebuild the manuscript:
-
-```powershell
-.\scripts\build_paper.ps1 -Strict
-```
-
-The final dense images are about 2.7 GB and are therefore not committed to Git.
-They are hash-pinned in `certificate/manifest.json`. With those files in one
-payload directory and CUDA 13 or later installed, replay the final directed
-comparison with:
-
-```powershell
-.\scripts\verify_full_certificate.ps1 -Payload D:\path\to\payload
-```
-
-The root tables needed for the exact-rational trigonometric check are small and
-are committed under `certificate/roots/`.
-
-## Trust boundary
-
-The machine part is a finite certificate check, not a claim that the CUDA
-compiler is a theorem prover. The public trust boundary is explicit:
-
-1. exact-rational verification of every stored binary32 root component;
-2. directed-rounding CUDA construction of positive upper images;
-3. a proved `500*2^-24` enclosure of the binary64 Fourier centres;
-4. a statewise directed comparison against the downward neighbour of `0.933`;
-5. SHA-256 binding of all accepted sources and payloads.
-
-## Licensing
-
-See `LICENSE.md`. Kernel source and verification scripts are Apache-2.0. The
-manuscript source and PDF are CC BY 4.0.
+Software is Apache-2.0; the manuscript is CC BY 4.0. See [LICENSE.md](LICENSE.md).

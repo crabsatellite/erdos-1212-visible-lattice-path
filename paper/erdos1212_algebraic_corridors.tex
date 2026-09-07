@@ -1,0 +1,567 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\htp}{\operatorname{ht}}
+\newcommand{\one}{\mathbf 1}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdftitle={Infinite paths in the composite-restricted visible lattice},pdfauthor={Alex Chengyu Li}}
+\title{Infinite paths in the composite-restricted visible lattice}
+\author{Alex Chengyu Li\\\small Independent Researcher}
+\date{6 September 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+We consider the nearest-neighbour graph on pairs of integers greater than
+one that are coprime and have at least one composite coordinate. We prove
+that this graph contains an infinite simple path, answering Erd\H{o}s
+Problem~1212 affirmatively. More precisely, for almost every slope in a
+fixed interval away from the diagonal, there is a ray with that limiting
+coordinate ratio. The proof first obtains many pairwise coprime composite
+rows free of small prime factors in a short band. A polynomial Jacobsthal bound supplies
+composite supporting columns, so a bad crossing through the band has a
+subcrossing of polylogarithmic width. Its large common prime divisors then
+force an integer interpolation polynomial of small height to vanish at
+one of its vertices. A summable estimate for the exceptional directions of
+all such polynomials permits one direction to be fixed at every sufficiently
+large scale. Planar crossing duality and explicit overlapping rectangles
+produce an unbounded connected subgraph along this direction, from which
+an infinite simple path is extracted.
+\end{abstract}
+
+\section{The graph and the main theorem}
+
+Let
+\begin{equation}\label{eq:safe-set}
+ \cS=\{(x,y)\in\NN^2:x,y>1,\ \gcd(x,y)=1,
+                 \text{ at least one of }x,y\text{ is composite}\}.
+\end{equation}
+Two vertices are adjacent when one coordinate changes by one and the other
+does not change. A ray is a sequence of distinct vertices with consecutive
+vertices adjacent. Every ray in this locally finite graph leaves every
+finite set.
+
+Erd\H{o}s asked whether this graph has a path going to infinity
+\cite[p.~114]{Erdos1980}. The composite-coordinate condition is important:
+Stewart's construction for the unrestricted visible lattice uses vertices
+whose two coordinates are prime. Vardi studied the infinite component of
+the unrestricted visible lattice and its asymptotic density \cite{Vardi1999}.
+Random-coset versions of coprime percolation have also been studied
+\cite{LeFournLiuMartineau2025}. Here every path is constructed in the
+deterministic graph~\eqref{eq:safe-set}.
+
+\begin{theorem}\label{thm:directions}
+For Lebesgue-almost every $\alpha\in(4/3,5/3)$ there is a ray
+$((x_t,y_t))_{t\geq0}$ in $\cS$ such that
+\[
+                         \frac{x_t}{y_t}\longrightarrow\alpha.
+\]
+In particular, the graph on $\cS$ has an infinite path.
+\end{theorem}
+
+For example, $(4,9),(5,9),(5,8)$ is a finite path in $\cS$.
+The vertex $(4,7)$, however, is isolated: its horizontal neighbours have two
+prime coordinates, and its vertical neighbours are nonvisible. Thus the
+theorem asserts an infinite component in a graph that also contains
+isolated vertices.
+
+The central step is to associate a small integer polynomial to a long
+\emph{bad} crossing, where a point with both coordinates greater than one
+is bad when it is outside $\cS$. An integer is called $z$-rough when all
+its prime factors exceed $z$. We obtain a short band containing many
+rough composite rows. Safe vertical supports localize a bad subcrossing
+in that band. At every selected row, a bad vertex has a large common prime
+divisor; the divisors are distinct. An interpolation polynomial in the
+short offsets then has an evaluation divisible by their product. This
+product exceeds the size of a nonzero evaluation, so the evaluation is zero.
+The polynomial may depend on the crossing. We handle this dependence by
+excluding the directions associated with \emph{all} polynomials of the
+required degree and height at once. Finally, overlapping rectangles in a
+single narrowing corridor connect the crossings at successive scales.
+
+\section{Notation and preliminary facts}
+
+An integer interval $[a,b]_{\ZZ}$ contains both endpoints and has
+$b-a+1$ sites. An integer rectangle is a product of two such intervals.
+A left-right crossing is a path inside the rectangle joining its left and
+right sides; top-bottom crossings are defined similarly. Safe paths use
+the four nearest neighbours. A bad star path may also use a diagonal step,
+so the maximum of the two coordinate changes is one.
+We write $\omega(n)$ for the number of distinct prime divisors of $n$,
+$\mu(n)$ for the Moebius function, and $p_k$ for the $k$th prime,
+with $p_1=2$.
+
+\begin{lemma}[Finite crossing facts]\label{lem:planar}
+In an integer rectangle, a safe left-right crossing exists if and only if
+there is no bad top-bottom star crossing. Furthermore, any nearest-neighbour
+left-right and top-bottom crossings of the same rectangle have a common
+vertex.
+\end{lemma}
+\begin{proof}
+These are the finite four/eight-neighbour crossing alternatives. One way
+to obtain the alternative is to join an auxiliary left side to every
+safe site reachable from the left, and trace the boundary on the right of
+this reachable set. If the set does not reach the right side, the boundary
+has a segment joining the upper and lower sides. The lattice sites just
+outside it are bad; successive such sites share an edge or a corner and
+give the required star crossing. Repetitions can be removed. Conversely,
+a left-right lattice path separates the upper and lower sides after its
+ends are extended outside the rectangle. A top-bottom star crossing must
+meet it. A diagonal edge between lattice sites cannot cross a horizontal
+or vertical lattice edge in its interior without a common lattice endpoint,
+so such an intersection would be a site of both colours. This is impossible.
+The same separation argument for two nearest-neighbour crossings proves
+the last assertion.
+\end{proof}
+
+We use the standard estimates
+\begin{equation}\label{eq:prime-estimates}
+ \prod_{p\leq z}(1-p^{-1})\sim\frac{e^{-\gamma}}{\log z},\qquad
+ \sum_{z<p\leq2z}\frac1p\sim\frac{\log2}{\log z},\qquad
+ \sum_{p\leq z}\frac1p=\log\log z+O(1),
+\end{equation}
+and $p_k=O(k\log(k+1))$. These follow from the prime number theorem,
+Mertens' theorem and partial summation; see \cite{RosserSchoenfeld1962}.
+We use Vaughan's uniform Jacobsthal bound \cite[p.~329]{Vaughan1977}:
+for any set $Q$ of $k$ primes, every interval of
+\begin{equation}\label{eq:jacobsthal}
+                         O((k+1)^2\log^4(k+2))
+\end{equation}
+consecutive integers contains an integer coprime to $\prod_{q\in Q}q$.
+The constant is absolute and the primes in $Q$ are arbitrary.
+
+Throughout the proof $N$ is sufficiently large, and we write
+\begin{equation}\label{eq:parameters}
+ \ell=\log N,\quad L=\log\ell,\quad u=1000L,\quad z=N^{1/u},\quad
+ d=\lceil4u\rceil,\quad r=\binom{d+2}{2}-1.
+\end{equation}
+The numerical parameter comparisons and counting estimates hold above a
+single absolute lower bound for $N$, uniformly in interval positions,
+chosen rows and bad paths. Later, the scale after which a fixed direction
+avoids the exceptional sets is allowed to depend on that direction.
+
+\section{Rough composite rows in short bands}
+
+\begin{lemma}\label{lem:rough-composites}
+Every integer interval $J\subset[N/2,4N]$ with $T=|J|\geq N^{9/10}$
+contains at least
+\begin{equation}\label{eq:rough-count}
+                          \frac{T}{100(\log z)^2}
+\end{equation}
+composite integers whose prime factors all exceed $z$.
+\end{lemma}
+\begin{proof}
+Put $P=\prod_{p\leq z}p$, $V=\prod_{p\leq z}(1-1/p)$, and
+$\mathcal Q=\{q\text{ prime}:z<q\leq2z\}$, with
+$S=\sum_{q\in\mathcal Q}q^{-1}$.
+For an integer $h$ coprime to $P$, let
+\[
+                  A_h=\#\{t\in J:h\mid t,\ \gcd(t,P)=1\}.
+\]
+Choose an odd integer $m=100L+O(1)$. Bonferroni's inequalities at orders
+$m$ and $m+1$ bound $A_h$ below and above by
+\[
+ \sum_{\substack{a\mid P\\\omega(a)\leq m}}\mu(a)
+                       \#\{t\in J:ha\mid t\},\qquad
+ \sum_{\substack{a\mid P\\\omega(a)\leq m+1}}\mu(a)
+                       \#\{t\in J:ha\mid t\},
+\]
+respectively. Each count is $T/(ha)+O(1)$, with absolute error at most one.
+The gap between the corresponding truncated main coefficients and $V$
+is at most the elementary symmetric sum of order $m+1$ in the numbers
+$1/p$, $p\leq z$. By~\eqref{eq:prime-estimates}, their sum is at most
+$2L$ eventually. Thus the coefficient error is at most
+\begin{equation}\label{eq:bonferroni-error}
+ \varepsilon_N=\left(\frac{2eL}{m+1}\right)^{m+1}
+                              \leq\ell^{-200}.
+\end{equation}
+The number of divisors retained at either order is at most
+$E_N=(m+2)z^{m+1}$. We have obtained, uniformly in $h$ coprime to $P$,
+\begin{equation}\label{eq:ah-count}
+ \frac{T}{h}(V-\varepsilon_N)-E_N
+ \leq A_h\leq
+ \frac{T}{h}(V+\varepsilon_N)+E_N.
+\end{equation}
+
+Apply the first two inclusion-exclusion terms to divisibility by primes
+in $\mathcal Q$. The number of integers counted by at least one of these
+events is at least
+\[
+             \sum_{q\in\mathcal Q}A_q
+                -\sum_{\substack{q,q'\in\mathcal Q\\q<q'}}A_{qq'}.
+\]
+Using~\eqref{eq:ah-count} and
+$\sum_{q<q'}(qq')^{-1}\leq S^2/2$, this is at least
+\begin{equation}\label{eq:rough-union}
+ T V(S-S^2/2)-T\varepsilon_N(S+S^2/2)-O(N^{1/5}).
+\end{equation}
+Indeed, the summed integer-count remainder is at most
+$4(m+2)z^{m+3}\leq N^{1/5}$ eventually, because
+$(m+3)/u\longrightarrow1/10$.
+
+By~\eqref{eq:prime-estimates}, the main coefficient in
+\eqref{eq:rough-union} is asymptotic to
+$e^{-\gamma}\log2/(\log z)^2$.
+Both errors are $o(T/(\log z)^2)$ uniformly for $T\geq N^{9/10}$.
+This proves~\eqref{eq:rough-count}. Finally, every counted integer exceeds
+$N/2>2z$ and has a divisor $q\in\mathcal Q$, so is composite.
+\end{proof}
+
+\begin{lemma}\label{lem:band}
+Set $B=\lceil10^4\ell^2\rceil$. Every interval $J$ as in
+Lemma~\ref{lem:rough-composites} contains a block $J_0$ of exactly $B$
+consecutive integers and distinct composite integers $c_1,\ldots,c_r\in J_0$
+whose prime factors exceed $z$. The $c_i$ are pairwise coprime.
+\end{lemma}
+\begin{proof}
+Partition $J$ into full blocks of $B$ integers and a final shorter block.
+Removing the latter loses at most $B=o(T/(\log z)^2)$ selected integers.
+By averaging, one full block contains at least
+\[
+             \frac{B}{200(\log z)^2}\geq50u^2
+\]
+of them. Since $r=8u^2+O(u)$, this is sufficient.
+Also $B<z$ eventually. A common prime factor of two selected integers
+would exceed $z$ but divide a nonzero difference smaller than $B$, an
+impossibility.
+\end{proof}
+
+\section{Localizing a bad crossing}
+
+\begin{lemma}\label{lem:supports}
+Let $J_0\subset[N/2,4N]$ be a block of $B$ consecutive integers and put
+$D_N=\lceil\ell^{11}\rceil$. On either side of each $x\in[N/2,4N]$,
+within distance $D_N$, there is a composite integer $v$ such that
+$\{v\}\times J_0\subset\cS$.
+\end{lemma}
+\begin{proof}
+Let $Q_0$ be the set of all prime divisors of the integers in $J_0$.
+Its cardinality $k$ satisfies
+\[
+                   k\leq B\frac{\log(4N)}{\log2}=O(\ell^3).
+\]
+Choose a prime $q\notin Q_0$ with $q\leq p_{k+1}$.
+By~\eqref{eq:jacobsthal}, integers $a$ coprime to $\prod_{p\in Q_0}p$
+occur with gaps $O((k+1)^2\log^4(k+2))$.
+Consequently integers $v=qa$ of this kind occur with gaps
+$O((k+1)^3\log^5(k+2))$.
+For $v$ near the indicated $x$ we have $a>1$, because $q=N^{o(1)}$ and
+$x\geq N/2$. Hence $v$ is composite. It is coprime to every element of
+$J_0$, giving the required safe segment.
+The gap bound is $O(\ell^9(\log\ell)^5)=o(\ell^{11})$; allowing an
+additional endpoint gap yields a support strictly on either side within
+$D_N$ for all sufficiently large $N$.
+\end{proof}
+
+\begin{lemma}\label{lem:localized}
+A bad top-bottom star crossing of a rectangle
+$I\times J\subset[N/2,4N]^2$ with $|J|\geq N^{9/10}$ contains points
+\[
+                    v_i=(x_0+a_i,y_0+b_i),\qquad 1\leq i\leq r,
+\]
+where $(x_0,y_0)$ is a point of that crossing,
+$|a_i|,|b_i|\leq R_N:=2D_N+B$, and there are distinct primes $q_i>z$
+dividing both coordinates of $v_i$.
+\end{lemma}
+\begin{proof}
+Choose $J_0$ and $c_i$ by Lemma~\ref{lem:band}.
+Orient the crossing from bottom to top. Take its first visit to the upper
+row of $J_0$ and its last preceding visit to the lower row. The intervening
+subpath stays inside the closed band: a visit above its upper row would
+contradict the first choice, and a visit below its lower row would force a
+later return to the lower row. Let $(x_0,y_0)$ be its first vertex.
+
+The two safe support columns from Lemma~\ref{lem:supports} cannot be
+crossed by this bad subpath. A star step changes the first coordinate by at
+most one, and the subpath cannot pass around an endpoint while remaining
+in the band. Its horizontal span is therefore at most $2D_N$.
+It visits every selected row $c_i$; choose $v_i$ on that row.
+Since $c_i$ is composite, badness at $v_i$ implies nonvisibility, and a
+prime $q_i$ dividing the common divisor exceeds $z$.
+The $q_i$ are distinct because the $c_i$ are pairwise coprime.
+The displayed offset bounds follow from the horizontal span and band height.
+\end{proof}
+
+\section{The interpolation equation}
+
+The height of an integer polynomial is the largest absolute value of its
+coefficients. The following elementary interpolation step keeps track of
+height as well as degree.
+
+\begin{lemma}\label{lem:interpolation}
+Let $d\geq1$, $r=\binom{d+2}{2}-1$, and $R\geq1$.
+For any $r$ integer pairs $(a_i,b_i)$ with $|a_i|,|b_i|\leq R$ there is
+a nonzero $H\in\ZZ[A,B]$ of total degree at most $d$ such that
+\begin{equation}\label{eq:height}
+ H(a_i,b_i)=0\quad(1\leq i\leq r),\qquad
+                         \htp(H)\leq r!R^{dr}.
+\end{equation}
+If distinct primes $q_i$ divide both coordinates of
+$(x_0+a_i,y_0+b_i)$, then
+\begin{equation}\label{eq:evaluation-divisibility}
+                         \prod_{i=1}^r q_i\mid H(-x_0,-y_0).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Evaluate the $r+1$ monomials of total degree at most $d$ at the given
+points. This gives an $r$ by $r+1$ integer matrix whose entries have
+absolute value at most $R^d$.
+Let its rank be $t\leq r$. Choose $t$ independent rows, $t$ columns
+forming a nonsingular minor, and one further column. The signed minors of
+the resulting $t$ by $t+1$ matrix give a nonzero integer kernel vector.
+Extend it by zero on all other columns. It annihilates the chosen rows,
+hence every row. Each coefficient is at most $t!R^{dt}\leq r!R^{dr}$.
+This proves~\eqref{eq:height}, without a full-rank assumption.
+
+Modulo $q_i$ the offset point equals $(-x_0,-y_0)$. Hence $q_i$ divides
+$H(-x_0,-y_0)$. Distinctness gives~\eqref{eq:evaluation-divisibility}.
+\end{proof}
+
+\begin{proposition}\label{prop:algebraic-point}
+Set $\mathcal H_N=\lceil\exp((\log\log N)^6)\rceil$.
+Every bad top-bottom star crossing of a rectangle
+$I\times J\subset[N/2,4N]^2$ with $|J|\geq N^{9/10}$ contains a point
+$(x_0,y_0)$ satisfying $F(x_0,y_0)=0$ for some nonzero
+$F\in\ZZ[X,Y]$ of total degree at most $d$ and height at most
+$\mathcal H_N$. The same statement holds for a left-right bad star crossing
+when $|I|\geq N^{9/10}$.
+\end{proposition}
+\begin{proof}
+Apply Lemmas~\ref{lem:localized} and~\ref{lem:interpolation}.
+Because $R_N=O(\ell^{11})$ and $d=O(L)$, $r=O(L^2)$, we have
+\begin{equation}\label{eq:coefficient-size}
+             \log(r!R_N^{dr})=O(L^4)<L^6
+\end{equation}
+eventually. Also
+\[
+ \log\prod_iq_i>\frac r u\ell,\qquad
+ |H(-x_0,-y_0)|\leq(r+1)\,r!R_N^{dr}(4N)^d.
+\]
+The logarithm of the latter bound is $d\ell+O(L^4)$, whereas
+$r/u=8u+O(1)$ and $d=4u+O(1)$.
+Thus the prime product strictly exceeds the bound for a nonzero evaluation.
+The divisibility in~\eqref{eq:evaluation-divisibility} forces
+$H(-x_0,-y_0)=0$. Set $F(X,Y)=H(-X,-Y)$.
+
+For a horizontal bad crossing, interchange the coordinate roles in the
+band and support construction. The interpolation applies to the original
+coordinate pair, or equivalently its resulting polynomial is transposed
+back. The point still lies on the original crossing and the degree and
+height bounds do not change.
+\end{proof}
+
+\section{A fixed direction avoiding the equations}
+
+For dyadic $N=2^j$, define
+\begin{equation}\label{eq:rho}
+             \rho_N=\exp\left(-\frac{\log N}{20000\log\log N}\right).
+\end{equation}
+Consider all nonzero polynomials $f\in\ZZ[T]$ of degree at most $d$ and
+height at most $\mathcal H_N$. Around the real part of each complex root
+put an interval of radius $4\rho_N$, and let $E_N$ be their union.
+Constant polynomials contribute no intervals. Writing $|E_N|$ for
+Lebesgue measure, we have
+\begin{equation}\label{eq:exception-measure}
+ |E_N|\leq8\rho_Nd(2\mathcal H_N+1)^{d+1}.
+\end{equation}
+Its logarithm is bounded above by
+\[
+              -\frac{\log N}{20000\log\log N}+O((\log\log N)^7).
+\]
+Therefore $\sum_j|E_{2^j}|<\infty$. For example, its summands are
+eventually bounded by $j^{-2}$. The measure of the set lying in infinitely
+many $E_{2^j}$ is at most every tail of this convergent series, hence is zero.
+
+Fix $\alpha\in(4/3,5/3)$ outside that null set. It lies outside $E_N$
+for all sufficiently large dyadic $N$. Define the lattice corridor
+\begin{equation}\label{eq:corridor}
+ \mathcal U_N(\alpha)=
+ \{(x,y)\in\ZZ^2\cap[N/2,4N]^2:|x/y-\alpha|\leq\rho_N\}.
+\end{equation}
+
+\begin{lemma}\label{lem:avoidance}
+No point of $\mathcal U_N(\alpha)$ is a zero of a nonzero integer
+polynomial of total degree at most $d$ and height at most
+$\mathcal H_N$, for all sufficiently large dyadic $N$.
+\end{lemma}
+\begin{proof}
+Suppose $F(x,y)=0$ at such a point. A nonzero constant cannot vanish, so
+let $m\geq1$ be its total degree and put
+$f(T)=\sum_{a+b=m}F_{ab}T^a$, where $F_{ab}$ is the coefficient of
+$X^aY^b$. This is a nonzero integer polynomial of degree at most $d$
+and height at most $\mathcal H_N$.
+Since $1<x/y<2$ eventually and $y\geq N/2$, the lower-degree terms give
+\[
+ |f(x/y)|\leq\frac{2(r+1)2^d\mathcal H_N}{N}
+                                                \leq N^{-1/2}
+\]
+for all sufficiently large $N$. The factor $2^d$ is harmless because
+$d=O(\log\log N)$.
+If $f$ is constant, this contradicts its being a nonzero integer.
+Otherwise factor it over $\CC$. Its leading coefficient has absolute value
+at least one, so one of its roots $\beta$ satisfies
+\[
+ |x/y-\beta|\leq N^{-1/(2\deg f)}
+                   \leq N^{-1/(2d)}\leq\rho_N^2.
+\]
+The last inequality uses $d\leq5000\log\log N$ eventually.
+It follows that $|\alpha-\Re\beta|\leq\rho_N+\rho_N^2<4\rho_N$,
+contradicting $\alpha\notin E_N$.
+\end{proof}
+
+\begin{corollary}\label{cor:crossings}
+Every integer rectangle $I\times J\subset\mathcal U_N(\alpha)$ has
+a safe left-right crossing if $|J|\geq N^{9/10}$, and a safe top-bottom
+crossing if $|I|\geq N^{9/10}$, for all sufficiently large dyadic $N$.
+\end{corollary}
+\begin{proof}
+Failure of the first crossing gives a bad top-bottom star crossing by
+Lemma~\ref{lem:planar}. Proposition~\ref{prop:algebraic-point} contradicts
+Lemma~\ref{lem:avoidance}. Use the horizontal versions for the second claim.
+\end{proof}
+
+\section{Joining the scales}
+
+\begin{proof}[Proof of Theorem~\ref{thm:directions}]
+Fix a direction $\alpha$ as in the preceding section, and take all dyadic
+scales sufficiently large for the preceding conclusions. Put
+\[
+ h_j=\left\lfloor\frac{2^j\rho_{2^j}}{100}\right\rfloor,\qquad
+ s_j=\lfloor h_j/10\rfloor.
+\]
+We have $h_j/(2^j)^{9/10}\to\infty$.
+For $t$ large, the derivative of $t/(20000\log t)$ lies between zero
+and $1/2$. Equation~\eqref{eq:rho} therefore implies
+\[
+ \sqrt2<\frac{2N\rho_{2N}}{N\rho_N}<2
+\]
+eventually. In particular the integers $h_j$ are nondecreasing and
+$h_{j+1}\leq3h_j$ for all sufficiently large $j$.
+
+At scale $N=2^j$ choose the integer heights $N,N+s_j,N+2s_j,\ldots$
+up to $2N$, adding the endpoint $2N$ if necessary. At each selected height
+$t$ let $Q(j,t)$ be the integer square with centre
+$(\lfloor\alpha t\rfloor,t)$ and half-side $h_j$.
+Every point of this square satisfies
+\[
+ |x-\alpha y|\leq1+(1+\alpha)h_j,\qquad y\geq N-h_j.
+\]
+Thus the square lies in $\mathcal U_N(\alpha)$, with ratio error less
+than $\rho_N/10$, eventually. Its coordinates lie in $[N/2,4N]^2$.
+Choose a safe horizontal crossing of each square by
+Corollary~\ref{cor:crossings}.
+
+For two consecutive squares $Q,Q'$ at the same scale, their centres
+differ by at most $h_j/10$ vertically and $h_j/4$ horizontally, including
+the rounding of $\alpha t$. Form a bridge rectangle $T$ by intersecting
+their horizontal intervals and taking the union of their vertical intervals.
+Its horizontal side length is at least $7h_j/4$ and its vertical side
+length is at most $21h_j/10$, apart from the added endpoint site.
+The same ratio estimate, with $h_j$ replaced by $5h_j/4$, puts $T$
+inside $\mathcal U_N(\alpha)$. Its horizontal side has more than
+$N^{9/10}$ sites, so it has a safe vertical crossing.
+
+This vertical crossing meets the chosen horizontal crossing of each of
+$Q,Q'$. Indeed, restricting it between the lower and upper sides of $Q$
+gives a vertical subcrossing in the rectangle with $Q$'s vertical interval
+and $T$'s horizontal interval. Restricting the horizontal crossing of $Q$
+to that horizontal interval gives the opposite crossing of the same
+rectangle. Lemma~\ref{lem:planar} gives an intersection. The argument
+for $Q'$ is identical. All horizontal crossings at this scale are connected.
+
+At height $2N$, the last square at scale $j$ and the first at scale $j+1$
+have the same centre and half-sides $h_j\leq h_{j+1}$.
+Use a bridge whose horizontal interval is that of the smaller square and
+whose vertical interval is that of the larger. It lies in the larger square,
+hence in $\mathcal U_{2N}(\alpha)$. Since
+$2h_j+1>(2N)^{9/10}$ eventually, it has a safe vertical crossing by
+Corollary~\ref{cor:crossings}. The preceding intersection argument joins
+the horizontal crossings at the two scales.
+
+The union of all these chosen paths is one connected unbounded subgraph
+of $\cS$. Fix a vertex on the first horizontal crossing. It reaches
+arbitrarily large first coordinates in this same union. The tree of finite
+simple paths from this fixed vertex is finitely branching and has nodes
+of arbitrarily large depth; Koenig's lemma gives a ray in the union.
+Each finite collection of the early squares and bridges has finitely many
+vertices. On every sufficiently late one the coordinate ratio is within
+$\rho_{2^j}$ of $\alpha$. Since a ray eventually leaves every finite set
+and $\rho_{2^j}\to0$, its ratio tends to $\alpha$.
+\end{proof}
+
+\begin{corollary}\label{cor:two-components}
+The graph on $\cS$ has an infinite component in each of the regions $x>y$
+and $x<y$. Removing finitely many vertices leaves an infinite component
+in each region.
+\end{corollary}
+\begin{proof}
+The construction gives a ray in $x>y$; transpose its coordinates for the
+other region. No nearest-neighbour path can change the sign of $x-y$
+without visiting the excluded diagonal. A ray has only finitely many
+vertices in a prescribed finite set, so an appropriate tail survives its
+removal.
+\end{proof}
+
+\section*{AI-assisted research}
+During the preparation of this work, the author used an author-developed
+local implementation of the Proof Engine infrastructure (development
+version 2.0) for AI-assisted research. The project-level research framework is described
+in \emph{Proof Engine 2.0}~\cite{LiProofEngineTwo2026}.
+See also \emph{Proof Engine Infrastructure} (1.0)~\cite{LiProofEngine2026}
+for the complementary proof-development framework.
+The implementation uses replaceable AI-agent and execution-harness components;
+the present work used OpenAI Codex as its AI-agent component. The author
+is responsible for the definitions, statements, proofs, citations, code,
+and exposition.
+
+\begin{thebibliography}{9}
+\bibitem{Erdos1980}
+P.~Erd\H{o}s, A survey of problems in combinatorial number theory,
+\emph{Annals of Discrete Mathematics} \textbf{6} (1980), 89--115.
+\href{https://doi.org/10.1016/S0167-5060(08)70697-6}{doi:10.1016/S0167-5060(08)70697-6}.
+\bibitem{Vaughan1977}
+R.~C.~Vaughan, On the order of magnitude of Jacobsthal's function,
+\emph{Proceedings of the Edinburgh Mathematical Society} \textbf{20} (1977), 329--331.
+\href{https://doi.org/10.1017/S0013091500026560}{doi:10.1017/S0013091500026560}.
+\bibitem{LeFournLiuMartineau2025}
+S.~Le Fourn, M.~Liu and S.~Martineau,
+Percolative properties of the random coprime colouring,
+\href{https://arxiv.org/abs/2509.08452}{arXiv:2509.08452} (2025).
+\bibitem{RosserSchoenfeld1962}
+J.~Barkley Rosser and L.~Schoenfeld,
+Approximate formulas for some functions of prime numbers,
+\emph{Illinois Journal of Mathematics} \textbf{6} (1962), 64--94.
+\href{https://doi.org/10.1215/ijm/1255631807}{doi:10.1215/ijm/1255631807}.
+\bibitem{Vardi1999}
+I.~Vardi, Deterministic percolation,
+\emph{Communications in Mathematical Physics} \textbf{207} (1999), 43--66.
+\href{https://doi.org/10.1007/s002200050717}{doi:10.1007/s002200050717}.
+\bibitem{LiProofEngineTwo2026}
+A.~Chengyu Li, Proof Engine 2.0: An Evidence-Governed Method for Autonomous
+Mathematical Research, Zenodo Working Paper (2026).
+\href{https://doi.org/10.5281/zenodo.22346064}{doi:10.5281/zenodo.22346064}.
+\bibitem{LiProofEngine2026}
+A.~Chengyu Li, Proof Engine Infrastructure: A Fail-Closed Claim-Graph Method
+for Accountable AI-Assisted Mathematical Research,
+SSRN Scholarly Paper 7237460 (2026).
+\href{https://doi.org/10.2139/ssrn.7237460}{doi:10.2139/ssrn.7237460}.
+\end{thebibliography}
+\medskip
+\noindent\small First publicly available version: 6 September 2026,
+\href{https://doi.org/10.5281/zenodo.22448689}{doi:10.5281/zenodo.22448689}.
+\end{document}
