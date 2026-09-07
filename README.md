@@ -13,7 +13,7 @@ every alpha in (4/3,5/3).
 - [Paper PDF](paper/Li_Infinite_Paths_Composite_Restricted_Visible_Lattice_2026.pdf)
 - [Paper source](paper/erdos1212_algebraic_corridors.tex)
 - [Dated preprint](https://doi.org/10.5281/zenodo.22448686)
-- [Versioned formalization and compiled artifacts](https://github.com/crabsatellite/erdos-1212-visible-lattice-path/releases/tag/v1.0.0)
+- [Versioned formalization and compiled artifacts](https://github.com/crabsatellite/erdos-1212-visible-lattice-path/releases/tag/v1.0.1)
 
 ## Statements and proof entry
 
@@ -48,7 +48,7 @@ lake build Erdos1212Kernel
 lake env lean --trust=0 Erdos1212Kernel/AlgebraicCorridorKernelAudit.lean
 ```
 
-The Release also supplies `erdos1212-lean-cache-v1.0.0.zip`, containing only
+The Release also supplies `erdos1212-lean-cache-v1.0.1.zip`, containing only
 compiled outputs for this repository's project modules. It excludes Mathlib
 and other dependency caches. With the pinned dependencies available, extracting
 that ZIP into `kernel/` restores `.lake/build/lib/lean/` and permits the final
@@ -58,7 +58,7 @@ archive hash against the release manifest before extraction.
 `python scripts/verify_publication.py` checks file identity and the source
 inventory only; it does not run Lean or independently prove the theorem.
 
-Release v1.0.0 is the algebraic-corridor proof. Earlier repository history
+Release v1.0.1 is the algebraic-corridor proof. Earlier repository history
 predates this proof and contains superseded private staging material; it is
 not part of this release's mathematical evidence.
 

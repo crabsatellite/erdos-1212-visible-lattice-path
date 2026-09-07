@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "release_tag": "v1.0.0",
+  "release_tag": "v1.0.1",
   "source_git_head": "b60f41596aade10753f827bb086df691dfe0881d",
-  "paper_sha256": "5c24929d019cf8c7dc482b946f3dbdb61e1810d83b2fb52b17385bbc3c3bc9a6",
-  "pdf_sha256": "1c351484b426fec49e7eca70c64f91f56299a995b89b9cd103c1f54edb95f33b",
+  "paper_sha256": "563e77af445378e2be2575d8df2a01a89370172b70953790a82d1c933f0c9f33",
+  "pdf_sha256": "2a31595c68ddde0f444c902568ec63ac9611d456838392af396827b79accae41",
   "kernel_contract": {
     "allowed_axioms": [
       "propext",
@@ -17,8 +17,8 @@
     ],
     "trust_zero": true
   },
-  "verification_completed_at": "2026-09-07T02:41:28.330089Z",
-  "verification_receipt_sha256": "d56192f3884384ea463a226a24dfd8bab42867c1ab13c5e41a932424fb5ca674",
+  "verification_completed_at": "2026-09-07T04:28:07.789370Z",
+  "verification_receipt_sha256": "4200cd1e15ad576175281af932aa03d105cb2106064bc31961096106e0610420",
   "verification_output_sha256": "5d2b489835d81036762959962276f5f935238a6ceb57c9433e8424e818f55344",
   "files": [
     {
@@ -39,7 +39,7 @@
     {
       "path": "README.md",
       "bytes": 3420,
-      "sha256": "0530b61612855dadcde20eb617bb4ae0bf0f2d3387b0b0dfdb323d9d99b4348f"
+      "sha256": "7fa0352a1f5fbcad5b1398d3b90c8cfb624d0020192b157e6efdc03171410715"
     },
     {
       "path": "certificate/kernel-audit.txt",
@@ -3608,8 +3608,8 @@
     },
     {
       "path": "paper/Li_Infinite_Paths_Composite_Restricted_Visible_Lattice_2026.pdf",
-      "bytes": 275762,
-      "sha256": "1c351484b426fec49e7eca70c64f91f56299a995b89b9cd103c1f54edb95f33b"
+      "bytes": 283837,
+      "sha256": "2a31595c68ddde0f444c902568ec63ac9611d456838392af396827b79accae41"
     },
     {
       "path": "paper/erdos1212_algebraic_corridors.bib",
@@ -3618,8 +3618,8 @@
     },
     {
       "path": "paper/erdos1212_algebraic_corridors.tex",
-      "bytes": 26213,
-      "sha256": "5c24929d019cf8c7dc482b946f3dbdb61e1810d83b2fb52b17385bbc3c3bc9a6"
+      "bytes": 26367,
+      "sha256": "563e77af445378e2be2575d8df2a01a89370172b70953790a82d1c933f0c9f33"
     },
     {
       "path": "scripts/verify_publication.py",
@@ -3769,7 +3769,7 @@
     "Mathlib.Topology.Order.MonotoneConvergence"
   ],
   "compiled_archive": {
-    "name": "erdos1212-lean-cache-v1.0.0.zip",
+    "name": "erdos1212-lean-cache-v1.0.1.zip",
     "bytes": 68779145,
     "sha256": "57f1b0606f0bfc07ee8f1254cb4c5eee2c9559e8ded1a906e689987c31d0d95c",
     "restore_relative_to": "kernel",
