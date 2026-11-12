@@ -36,12 +36,43 @@ There are no additional mathematical axioms in their printed dependencies.
 [artifact manifest](certificate/manifest.json) identify this release's evidence.
 This is machine verification, not a claim of journal peer review.
 
+## Independent reproduction and community review
+
+[Srijan Roy (BlazeSR10hawk)](https://github.com/BlazeSR10hawk) published a
+[successful independent rebuild and trust-zero audit](https://github.com/BlazeSR10hawk/formal-conjectures/actions/runs/38012609676)
+on 10 October 2026. The
+[pinned workflow](https://github.com/BlazeSR10hawk/formal-conjectures/blob/077e32f04c4c42b24d2099565a9bb971d148bb1c/.github/workflows/verify-erdos1212.yml)
+checks out this proof at `400001f0847afe36a26c588d34445210dbdc116e`,
+builds `Erdos1212Kernel`, and runs the final audit with `--trust=0`.
+The printed endpoint dependencies are the three standard axioms listed above.
+
+[Formal Conjectures PR #6788](https://github.com/google-deepmind/formal-conjectures/pull/6788)
+was merged on 22 October 2026. Bo Cowgill checked the bridge from this
+repository's stronger ray theorem to the original problem and approved after
+the public rebuild evidence was linked. Moritz Firsching approved and merged
+the update marking the original problem research-solved and citing this
+external formalization.
+
+I thank Srijan Roy for making the rebuild inspectable, Bo Cowgill for the
+statement-correspondence review and verification request, and Moritz
+Firsching for review and integration. These contributions
+have distinct scopes: the public run is the independent rebuild; the PR
+records the correspondence review and community status update. Their scope is
+the pinned proof and original problem.
+
 ## Reproduce
+
+The commands below reproduce the fixed proof snapshot
+`400001f0847afe36a26c588d34445210dbdc116e`. In a fresh checkout, select it
+before verifying the byte inventory or building. The later external-review
+notes in this main-branch README are outside the original release's recorded
+README bytes; the release manifest and historical receipts remain unchanged.
 
 Install the exact Lean version in `kernel/lean-toolchain` and preserve the
 dependency revisions in `kernel/lake-manifest.json`.
 
 ```text
+git switch --detach 400001f0847afe36a26c588d34445210dbdc116e
 cd kernel
 lake exe cache get
 lake build Erdos1212Kernel
